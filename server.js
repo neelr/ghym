@@ -15,7 +15,7 @@ const JobWatch = Job.watch().on('change', data => {
     if (data.fullDocument) {
         Worker.findOne({ram: {$gte : data.fullDocument.ram}}).exec((err,res) => {
             if (res) {
-                io.to(res.peer_id).emit("job",{code:data.fullDocument.code})
+                io.to(res.peer_id).emit("job",{code:data.fullDocument.code, socket: data.fullDocument.peer_id, name:data.fullDocument.name})
             }
         })
     }
@@ -25,7 +25,7 @@ const WorkerWatch = Worker.watch().on('change', data => {
     if (data.fullDocument) {
         Job.findOne({ram: {$lt : data.fullDocument.ram}}).exec((err,res) => {
             if (res) {
-                io.to(data.fullDocument.peer_id).emit("job",{code:res.code})
+                io.to(data.fullDocument.peer_id).emit("job",{code:res.code, socket: res.peer_id, name:res.name})
                 console.log("hi")
             }
         })
@@ -37,8 +37,10 @@ io.on("connection", (socket) => {
         Worker.find({peer_id:socket.id}).remove().exec()
         Job.find({peer_id:socket.id}).remove().exec()
     })
+    socket.on("done", data => {
+        io.to(data.socket).emit("done",{name:data.name})
+    })
 })
-
 app.get("/", (req,res) => {
     res.send('Heyo! Server is up and running! Be sure to check Ghym out soon!')
 })
