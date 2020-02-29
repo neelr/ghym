@@ -1,0 +1,17 @@
+{
+    "name":"ghym-server",
+    "version":2,
+    "env": {
+        "MONGO_URL": "mongodb+srv://admin:notpassword01@cluster0-uf9xv.mongodb.net/ghym?retryWrites=true&w=majority"
+      },
+        "builds": [
+          { "src": "server.js", "use": "@now/node-server" },
+          { "src": "*/*.js", "use": "@now/node" }
+        ],
+        "routes": [
+            {
+              "src": "/*",
+              "methods": ["GET", "POST"],
+              "dest": "/server.js"
+            }]
+}

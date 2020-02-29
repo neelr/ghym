@@ -35,7 +35,7 @@ export default class Run extends React.Component {
                         <option value="9">9 GB</option>
                     </Select>
                     <Button onClick={() => {
-                        axios.post("https://ghym-server.glitch.me/new_node",{is_running:false,name:document.getElementById("name").value,id:this.state.id,ram:document.getElementById("ram").value})
+                        axios.post("https://ghym-server.now.sh/new_node",{is_running:false,name:document.getElementById("name").value,id:this.state.id,ram:document.getElementById("ram").value})
                         document.getElementById('form').reset();
                         this.setState({connect:(<Text fontSize="53" m="10px" color="secondary">✨Node is Running!✨</Text>),})
                         }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
@@ -44,7 +44,7 @@ export default class Run extends React.Component {
         )
     }
     componentDidMount () {
-        var socket = io("https://ghym-server.glitch.me/")
+        var socket = io("https://ghym-server.now.sh/")
         socket.on("connect", () => {
             this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:socket.id})
         })
