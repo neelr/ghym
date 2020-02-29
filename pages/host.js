@@ -50,7 +50,10 @@ export default class Run extends React.Component {
             this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:socket.id})
         })
         socket.on("job", data => {
-            console.log(data)
+            axios.post("http://localhost:7838/python",data)
+                .then(d => {
+                    socket.emit("done",{name:data.name,socket:data.socket,out:d.out})
+                })
         })
     }
 }

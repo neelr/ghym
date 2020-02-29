@@ -15,7 +15,10 @@
   "dependencies": {
     "@rebass/forms": "^4.0.6",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "electron": "^8.0.2",
+    "express": "^4.17.1",
+    "python-shell": "^1.0.8",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {

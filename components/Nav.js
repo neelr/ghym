@@ -1,6 +1,7 @@
 import React from "react"
 import { Flex, Box, Text, Button, Link } from "rebass"
 import { useColorMode } from 'theme-ui'
+import Linker from "next/link"
 const ColorButton = ({ mode, ...props }) => (
     <Box
       as="button"
@@ -44,13 +45,17 @@ export default props => {
             color='white'
             bg='black'
             alignItems='center'>
-            <Link p={2} variant='nav' href='/'>
-                Home
-            </Link>
+            <Linker href="/">
+              <Link p={2} variant='nav'>
+                  Home
+              </Link>
+            </Linker>
             <Box mx='auto' />
-            <Link mx="10px" variant='nav' href='/help'>
-                Help!
-            </Link>
+			<Linker href="/help">
+				<Link mx="10px" variant='nav'>
+					Help!
+				</Link>
+			</Linker>
             <ColorButton
                 onClick={e => {
                     setColorMode(colorMode === 'default' ? 'dark' : 'default')
