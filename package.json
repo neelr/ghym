@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/neelr/ghym#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http": "0.0.0",
