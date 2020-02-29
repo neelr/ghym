@@ -13,9 +13,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "@rebass/forms": "^4.0.6",
+    "axios": "^0.19.2",
     "electron": "^8.0.2",
-    "mongoose": "^5.9.2"
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

@@ -47,8 +47,8 @@ export default {
       "darken": "#00044c",
       "modes": {
         "dark": {
-          "text": "#3e4155",
-          "background": "#000639",
+          "text": "#fff",
+          "background": "#1d1f2f",
           "primary": "#9c6ade",
           "secondary": "#b4e1fa",
           "highlight": "#b7ecec",
@@ -139,6 +139,20 @@ export default {
       },
       "img": {
         "maxWidth": "100%"
+      }
+    },
+    variants: {
+      "nav": {
+        color:"white",
+        ":hover": {
+          color:"secondary"
+        },
+        fontWeight:"700",
+        textDecoration:"none"
+      },
+      outline: {
+        border:"secondary",
+        bg:"background"
       }
     }
   }
