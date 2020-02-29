@@ -56,7 +56,7 @@ export default class Run extends React.Component {
             this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:socket.id})
         })
         socket.on("done",d => {
-            document.getElementById("console").value = `${d.name} has finished with the output: ${d.out}`
+            document.getElementById("console").value = `${d.name} has finished with the output: ${d.out.replace(/,/g,"\n")}`
         })
     }
 }

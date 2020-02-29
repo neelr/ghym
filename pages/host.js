@@ -25,7 +25,6 @@ export default class Run extends React.Component {
                     <Input id="name" name="name" css={{borderRadius:"3px"}} placeholder="My Node 123"/>
                     <Label for="ram">Memory</Label>
                     <Select id="ram" name="ram">
-                        <option value="1">1 GB</option>
                         <option value="2">2 GB</option>
                         <option value="3">3 GB</option>
                         <option value="4">4 GB</option>
@@ -52,7 +51,7 @@ export default class Run extends React.Component {
         socket.on("job", data => {
             axios.post("http://localhost:7838/python",data)
                 .then(d => {
-                    socket.emit("done",{name:data.name,socket:data.socket,out:d.data.out})
+                    socket.emit("done",{name:data.name,socket:data.socket,out:d.data.out.replace(",","\n")})
                 })
         })
     }
