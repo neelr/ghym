@@ -9,10 +9,10 @@ const {PythonShell} = require("python-shell");
 server.use(express.json())
 
 server.post("/python",(req, res) => {
-	console.log(req.body)
 	var output;
 	PythonShell.runString(req.body.code,null, (err,out) => {
 		output = out ? out : err;
+		console.log(output)
 		res.send({out:output})
 	})
 })
@@ -37,6 +37,7 @@ function createWindow () {
 				protocol: 'file',
 				slashes: true
 		}))
+		win.webContents.openDevTools();
 	 } else {
 			 win.loadURL("http://localhost:3000");
 			 win.webContents.openDevTools();

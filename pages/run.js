@@ -13,7 +13,8 @@ import {
 export default class Run extends React.Component {
     state = {
         connect:(<Text fontSize="3" m="10px" color="red">Disconnected 💀</Text>),
-        id:""
+        id:"",
+        console:""
     }
     render () {
         return (
@@ -36,7 +37,7 @@ export default class Run extends React.Component {
                         <option value="9">9 GB</option>
                     </Select>
                     <Label for="code">Code</Label>
-                    <Textarea css={{borderRadius:"3px"}} id="code" name="code" placeholder={`print("Hello World!");`}>
+                    <Textarea css={{borderRadius:"3px"}} id="code" name="code" placeholder={`print("Hello World!")`}>
                         
                     </Textarea>
                     <Button onClick={() => {
@@ -44,6 +45,8 @@ export default class Run extends React.Component {
                         document.getElementById('form').reset();
                         }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
                 </Flex>
+                <Textarea sx={{bg:"grey",color:"green"}}  id="console" placeholder={`Your console!`} readOnly>
+                </Textarea>
             </Flex>
         )
     }
@@ -53,7 +56,7 @@ export default class Run extends React.Component {
             this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:socket.id})
         })
         socket.on("done",d => {
-            alert(`${d.name} has finished with the output: ${d.out}`)
+            document.getElementById("console").value = `${d.name} has finished with the output: ${d.out}`
         })
     }
 }

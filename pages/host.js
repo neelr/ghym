@@ -52,7 +52,7 @@ export default class Run extends React.Component {
         socket.on("job", data => {
             axios.post("http://localhost:7838/python",data)
                 .then(d => {
-                    socket.emit("done",{name:data.name,socket:data.socket,out:d.out})
+                    socket.emit("done",{name:data.name,socket:data.socket,out:d.data.out})
                 })
         })
     }
