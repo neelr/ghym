@@ -11,8 +11,8 @@ server.use(express.json())
 server.post("/python",(req, res) => {
 	var output;
 	PythonShell.runString(req.body.code,null, (err,out) => {
-		output = out ? out : err.traceback;
-		console.log(output)
+		output = out ? out : err;
+		console.log(Object.values(output))
 		res.send({out:output})
 	})
 })

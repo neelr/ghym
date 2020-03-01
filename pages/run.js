@@ -45,7 +45,7 @@ export default class Run extends React.Component {
                         document.getElementById('form').reset();
                         }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
                 </Flex>
-                <Textarea sx={{bg:"grey",color:"green"}}  id="console" placeholder={`Your console!`} readOnly>
+                <Textarea sx={{m:"auto", bg:"dark",width:["80vw","50vw"]}}  id="console" placeholder={`Your console!`} readOnly>
                 </Textarea>
             </Flex>
         )
