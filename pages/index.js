@@ -18,6 +18,9 @@ export default class Home extends React.Component {
                     <Link href="/run">
                         <Button p="20px" px="40px" m="auto" sx={{fontSize:3,":hover":{"cursor":"pointer"}}}>Run</Button>
                     </Link>
+                    <Link href="/">
+                        <Button p="20px" px="40px" m="auto" sx={{fontSize:3,":hover":{"cursor":"pointer"}}}>Run</Button>
+                    </Link>
                 </Flex>
             </Flex>
         )
