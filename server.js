@@ -15,74 +15,50 @@ mongoose.connect(process.env.MONGO_URL, {
 });
 var Worker = mongoose.model("Workers", WorkerSchema);
 var Job = mongoose.model("Jobs", JobScheme);
-
-const JobWatch = Job.watch().on("change", data => {
-  if (data.fullDocument && !data.fullDocument.is_running) {
-    Worker.findOne({ ram: { $gte: data.fullDocument.ram }, is_running:false }).exec(
-      (err, res) => {
-        if (res) {
-            Job.findById(data.documentKey._id,(_,doc) => {
-                doc.is_running = true;
-                doc.save()
-            })
-          io.to(res.peer_id).emit("job", {
-            code: data.fullDocument.code,
-            socket: data.fullDocument.peer_id,
-            name: data.fullDocument.name
-          });
-          res.is_running = true;
-          res.save()
-        }
-      }
-    );
-  }
-});
-
-const WorkerWatch = Worker.watch().on("change", data => {
-  if (data.fullDocument && !data.fullDocument.is_running) {
-    Job.findOne({ ram: { $lt: data.fullDocument.ram }, is_running:false  }).exec((err, res) => {
-      if (res) {
-        Worker.findById(data.documentKey._id,(_,doc) => {
-            doc.is_running = true;
-            doc.save()
-        })
-        io.to(data.fullDocument.peer_id).emit("job", {
-          code: res.code,
-          socket: res.peer_id,
-          name: res.name
-        });
-        res.is_running = true;
-        res.save()
-      }
-    });
-  }
-});
-
+Job.find({ peer_id: "mbdsUXLeEuLtA_HgAAAI" }).remove().exec();
 io.on("connection", socket => {
   socket.on("disconnect", () => {
-  console.log("looped")
-    Worker.findOne({ peer_id: socket.id })
-      .remove()
-      .exec();
-    Job.findOne({ peer_id: socket.id })
-      .remove()
-      .exec();
+    console.log("disconn");
+    Worker.find({ peer_id: socket.id }).remove().exec();
+    Job.find({ peer_id: socket.id }).remove().exec();
   });
-  socket.on("done", data => {
-    io.to(data.socket).emit("done", { name: data.name });
+  socket.on("done", async data => {
+    console.log("Done with ", data);
+    console.log(data.socket)
+    io.to(data.socket).emit("done", data);
+    console.log(socket.id)
+    Worker.findOne({ peer_id: socket.id }, (err,doc) => {
+      doc.is_running = !doc.is_running
+      doc.save()
+    })
+    Job.find({ peer_id: data.socket }).remove().exec();
   });
 });
 app.get("/", (req, res) => {
   res.send("Heyo! Server is up and running! Be sure to check Ghym out soon!");
 });
 
-app.post("/new_node", (req, res) => {
+app.post("/new_node", async (req, res) => {
   var new_worker = new Worker({
     name: req.body.name,
     ram: req.body.ram,
     is_running: false,
     peer_id: req.body.id
   });
+  console.log(new_worker.ram);
+  var job = await new Promise((resolve,rej) => { Job.findOne({ ram: { $lte: new_worker.ram }, is_running: false }, (err, res) => {
+      resolve(res)
+    })})
+  if (job) {
+      new_worker.is_running = true;
+      io.to(new_worker.peer_id).emit("job", {
+        code: job.code,
+        socket: job.peer_id,
+        name: job.job_name
+      });
+      job.is_running = true;
+      job.save();
+    }
   new_worker.save();
   res.send({ id: new_worker.id });
 });
@@ -94,17 +70,39 @@ app.post("/deactivate_node", (req, res) => {
   res.sendStatus(200);
 });
 
-app.post("/queue_job", (req, res) => {
-  Job.create({
+app.post("/queue_job", async (req, res) => {
+  var job = new Job({
     job_name: req.body.name,
     peer_id: req.body.id,
     is_running: false,
     ram: req.body.ram,
     code: req.body.code
   });
+  const worker = await new Promise((resolve) => Worker.findOne({ ram: { $gte: job.ram }, is_running: false }, (err, res) => {
+      if (err) {
+      reject(err);
+      return;
+      } 
+      
+      resolve(res);
+    }
+  ))
+  
+  if (worker) {
+  console.log(worker.peer_id)
+        io.to(worker.peer_id).emit("job", {
+          code: job.code,
+          socket: job.peer_id,
+          name: job.name
+        });
+        worker.is_running = true;
+        worker.save();
+        job.is_running = true;
+  }
+  
+  job.save();
   res.sendStatus(200);
 });
-
 app.get("/active_jobs", async (req, res) => {
   x = await Job.find({})
   res.send(x)
