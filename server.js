@@ -39,28 +39,36 @@ app.get("/", (req, res) => {
 });
 
 app.post("/new_node", async (req, res) => {
-  var new_worker = new Worker({
-    name: req.body.name,
-    ram: req.body.ram,
-    is_running: false,
-    peer_id: req.body.id
-  });
-  console.log(new_worker.ram);
-  var job = await new Promise((resolve,rej) => { Job.findOne({ ram: { $lte: new_worker.ram }, is_running: false }, (err, res) => {
-      resolve(res)
-    })})
-  if (job) {
-      new_worker.is_running = true;
-      io.to(new_worker.peer_id).emit("job", {
-        code: job.code,
-        socket: job.peer_id,
-        name: job.job_name
-      });
-      job.is_running = true;
-      job.save();
+  Worker.findOne({ peer_id: req.body.id}, async (err, docs) => {
+  console.log(docs)
+    if (!docs) {
+    var new_worker = new Worker({
+      name: req.body.name,
+      ram: req.body.ram,
+      is_running: false,
+      peer_id: req.body.id
+    });
+    console.log(new_worker.ram);
+    var job = await new Promise((resolve,rej) => { Job.findOne({ ram: { $lte: new_worker.ram }, is_running: false }, (err, res) => {
+        resolve(res)
+      })})
+    if (job) {
+        new_worker.is_running = true;
+        io.to(new_worker.peer_id).emit("job", {
+          code: job.code,
+          socket: job.peer_id,
+          name: job.job_name
+        });
+        job.is_running = true;
+        job.save();
+      }
+    new_worker.save();
+    res.send({ id: new_worker.id });
+    } else {
+    console.log("YEETED")
+    res.send("Two instances not allowed")
     }
-  new_worker.save();
-  res.send({ id: new_worker.id });
+  })
 });
 
 app.post("/deactivate_node", (req, res) => {
@@ -93,7 +101,7 @@ app.post("/queue_job", async (req, res) => {
         io.to(worker.peer_id).emit("job", {
           code: job.code,
           socket: job.peer_id,
-          name: job.name
+          name: job.job_name
         });
         worker.is_running = true;
         worker.save();
