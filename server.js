@@ -105,18 +105,14 @@ app.post("/queue_job", (req, res) => {
   res.sendStatus(200);
 });
 
-app.get("/active_jobs", (req, res) => {
-  if(err){
-    res.send(err)
-  }
-  res.send(Job.find({}))
+app.get("/active_jobs", async (req, res) => {
+  x = await Job.find({})
+  res.send(x)
 })
 
-app.get("/active_workers", (req, res) => {
-  if(err){
-    res.send(err)
-  }
-  res.send(Worker.find({}))
+app.get("/active_workers", async (req, res) => {
+  x = await Worker.find({})
+  res.send(x)
 })
 
 http.listen(3000, () => console.log("Up and running on port 3000!!!"));
