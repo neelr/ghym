@@ -106,10 +106,16 @@ app.post("/queue_job", (req, res) => {
 });
 
 app.get("/active_jobs", (req, res) => {
+  if(err){
+    res.send(err)
+  }
   res.send(Job.find({}))
 })
 
 app.get("/active_workers", (req, res) => {
+  if(err){
+    res.send(err)
+  }
   res.send(Worker.find({}))
 })
 
