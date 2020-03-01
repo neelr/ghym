@@ -16,6 +16,9 @@ export default class Home extends React.Component {
                     <Link href="/host">
                         <Button p="20px" px="40px" m="auto" sx={{fontSize:3,bg:"secondary",":hover":{"cursor":"pointer"}}}>Host</Button>
                     </Link>
+                    <Link href="/stats">
+                        <Button p="20px" px="40px" m="auto" sx={{fontSize:3,bg:"green",":hover":{"cursor":"pointer"}}}>Statistics</Button>
+                    </Link>
                     <Link href="/run">
                         <Button p="20px" px="40px" m="auto" sx={{fontSize:3,":hover":{"cursor":"pointer"}}}>Run</Button>
                     </Link>

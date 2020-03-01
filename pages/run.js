@@ -9,7 +9,7 @@ import {
     Select,
     Textarea,
   } from '@rebass/forms'
-
+  import Dropzone from 'react-dropzone'
 export default class Run extends React.Component {
     state = {
         connect:(<Text fontSize="3" m="10px" color="red">Disconnected 💀</Text>),
@@ -40,7 +40,30 @@ export default class Run extends React.Component {
                     <Textarea css={{borderRadius:"3px"}} id="code" name="code" placeholder={`print("Hello World!")`}>
                         
                     </Textarea>
+                    <Dropzone accept=".py" onDrop={acceptedFiles => {
+                        acceptedFiles.forEach((file) => {
+                            const reader = new FileReader()
+                            reader.readAsBinaryString(file)
+                            reader.onabort = () => console.log('file reading was aborted')
+                            reader.onerror = () => console.log('file reading has failed')
+                            reader.onload = () => {
+                              const binaryStr = reader.result
+                              document.getElementById("code").value = binaryStr
+                            }
+                          })
+                    }}>
+                    {({getRootProps, getInputProps}) => (
+                        <section>
+                        <div style={{height:"100px", marginTop:"20px", display:"flex",outlineColor:"grey",outlineWidth:"3px",outlineStyle:"dashed"}} {...getRootProps()}>
+                            <input id="file" {...getInputProps()} />
+                            <p style={{margin:"auto"}}>Drag 'n' drop your python files here, or click to select files</p>
+                        </div>
+                        </section>
+                    )}
+                    </Dropzone>
                     <Button onClick={() => {
+                        
+                        console.log(document.getElementById("file").value[0].type)
                         axios.post("https://ghym-server.glitch.me/queue_job",{is_running:false,name:document.getElementById("name").value,id:this.state.id,ram:document.getElementById("ram").value,code:document.getElementById("code").value})
                         document.getElementById('form').reset();
                         }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
@@ -56,7 +79,7 @@ export default class Run extends React.Component {
             this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:socket.id})
         })
         socket.on("done",d => {
-            document.getElementById("console").value = `${d.name} has finished with the output: ${d.out.replace(/,/g,"\n")}`
+            document.getElementById("console").value = `${d.name} has finished with the output: ${d.out}`
         })
     }
 }
