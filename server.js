@@ -104,4 +104,13 @@ app.post("/queue_job", (req, res) => {
   });
   res.sendStatus(200);
 });
+
+app.get("/active_jobs", (req, res) => {
+  res.send(Job.find({}))
+})
+
+app.get("/active_workers", (req, res) => {
+  res.send(Worker.find({}))
+})
+
 http.listen(3000, () => console.log("Up and running on port 3000!!!"));
