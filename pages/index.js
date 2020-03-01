@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Flex, Text, Heading, Button} from "rebass";
 import Link from "next/link"
+import axios from "axios"
 
 export default class Home extends React.Component {
     render () {
@@ -18,11 +19,22 @@ export default class Home extends React.Component {
                     <Link href="/run">
                         <Button p="20px" px="40px" m="auto" sx={{fontSize:3,":hover":{"cursor":"pointer"}}}>Run</Button>
                     </Link>
-                    <Link href="/">
-                        <Button p="20px" px="40px" m="auto" sx={{fontSize:3,":hover":{"cursor":"pointer"}}}>Run</Button>
-                    </Link>
+                    <Button onClick={() => {
+                        let active_jobs = axios.get("https://ghym-server.now.sh/active_jobs")
+                        console.log(active_jobs)
+                        }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
                 </Flex>
             </Flex>
         )
     }
 }
+
+/*
+app.get("/active_jobs", (req, res) => {
+  res.send(Job.find({}))
+})
+
+app.get("/active_workers", (req, res) => {
+  res.send(Worker.find({}))
+})
+*/
