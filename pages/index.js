@@ -12,6 +12,7 @@ export default class Home extends React.Component {
                     <Text width="75vw" m="auto" sx={{textIndent:"5vw"}}>Ghym is a distributed cloud computing platform that allows users to
                     host jobs on their computers or assign jobs to others computers.  When a job is assigned, a small fee is charged based
                     on how much RAM is requested and how long the job takes.  The host gets most of the fee and the rest goes to the Ghym project.
+                    Currently our service only supports python due to python being the most common language for computationally expensive tasks.
                     </Text>
                 </Flex>
                 <Flex height="50vh">
