@@ -61,9 +61,8 @@ export default class Run extends React.Component {
                         </section>
                     )}
                     </Dropzone>
-                    <Button onClick={() => {
-                        
-                        console.log(document.getElementById("file").value[0].type)
+                    <Button onClick={(e) => {
+                        e.preventDefault()
                         axios.post("https://ghym-server.glitch.me/queue_job",{is_running:false,name:document.getElementById("name").value,id:this.state.id,ram:document.getElementById("ram").value,code:document.getElementById("code").value})
                         document.getElementById('form').reset();
                         }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
