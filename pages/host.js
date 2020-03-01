@@ -56,4 +56,7 @@ export default class Run extends React.Component {
                 })
         })
     }
+    componentWillUnmount () {
+        socket.disconnect()
+    }
 }
