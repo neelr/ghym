@@ -1,7 +1,6 @@
 import React from "react";
 import {Box, Flex, Text, Heading, Button} from "rebass";
 import Link from "next/link"
-import axios from "axios"
 
 export default class Home extends React.Component {
     render () {
@@ -10,7 +9,10 @@ export default class Home extends React.Component {
                 <Flex flexDirection="column" height="50vh">
                     <Heading sx={{textDecoration:"underline",textDecorationStyle: "wavy",}} fontSize={[6,7]} m="auto">Ghym</Heading>
                     <Text m="auto" p="10px" fontWeight="700">Simple, Modern, Distributed Cloud Computing</Text>
-                    <Text width="75vw" m="auto" sx={{textIndent:"5vw"}}>Corned beef boudin drumstick alcatra, salami chuck jowl ground round short ribs. Chuck tri-tip ham jowl, pork venison salami shank meatball pork belly turkey ribeye rump flank sirloin. Porchetta landjaeger pork beef ribs picanha andouille chislic venison. Beef ribs andouille ham shank. Venison chislic hamburger pork. Capicola ribeye jowl, jerky corned beef tail andouille pig. T-bone corned beef swine ribeye brisket pastrami ham hock picanha pork belly buffalo.</Text>
+                    <Text width="75vw" m="auto" sx={{textIndent:"5vw"}}>Ghym is a distributed cloud computing platform that allows users to
+                    host jobs on their computers or assign jobs to others computers.  When a job is assigned, a small fee is charged based
+                    on how much RAM is requested and how long the job takes.  The host gets most of the fee and the rest goes to the Ghym project.
+                    </Text>
                 </Flex>
                 <Flex height="50vh">
                     <Link href="/host">
