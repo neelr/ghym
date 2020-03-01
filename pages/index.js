@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Flex, Text, Heading, Button} from "rebass";
 import Link from "next/link"
+import axios from "axios"
 
 export default class Home extends React.Component {
     render () {
