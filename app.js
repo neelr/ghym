@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("fix-path")()
 const url = require("url");
 const path = require("path")
 const {shell, app, BrowserWindow, protocol } = require("electron")

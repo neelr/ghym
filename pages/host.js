@@ -38,22 +38,26 @@ export default class Run extends React.Component {
                         axios.post("https://ghym-server.glitch.me/new_node",{is_running:false,name:document.getElementById("name").value,id:this.state.id,ram:document.getElementById("ram").value})
                         document.getElementById('form').reset();
                         this.setState({connect:(<Text fontSize="53" m="10px" color="secondary">✨Node is Running!✨</Text>),})
-                        }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Send Away!</Button>
+                        }} m="10px" sx={{":hover":{cursor:"pointer"}}}>Start Node!</Button>
+                        <Button onClick={() => {this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:""}); this.socket.disconnect()}} bg="#ec2d2d" m="10px" sx={{":hover":{cursor:"pointer"}}}>Kill Node</Button>
                 </Flex>
             </Flex>
         )
     }
-    componentDidMount () {
-        var socket = io("https://ghym-server.glitch.me/")
-        socket.on("connect", () => {
-            this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:socket.id})
+    componentWillMount () {
+        this.socket = io("https://ghym-server.glitch.me/")
+        this.socket.on("connect", () => {
+            this.setState({connect:(<Text m="10px" fontSize="3" color="green">Connected 🔌</Text>),id:this.socket.id})
         })
-        socket.on("job", data => {
+        this.socket.on("job", data => {
             axios.post("http://localhost:7838/python",data)
                 .then(d => {
                     console.log(data)
-                    socket.emit("done",{name:data.name,socket:data.socket,out:d.data.out})
+                    this.socket.emit("done",{name:data.name,socket:data.socket,out:d.data.out})
                 })
         })
+    }
+    componentWillUnmount () {
+        this.socket.disconnect()
     }
 }

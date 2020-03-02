@@ -3,6 +3,7 @@ node_modules
 .next
 out
 assets
-win
-mac
-linux
+ghym-darwin-x64
+ghym-mas-x64
+ghym-linux-x64
+ghym-win32-x64

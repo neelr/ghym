@@ -7,20 +7,20 @@
     "start": "electron .",
     "start-next": "next",
     "build": "next build && next export",
-    "package": "electron-packager .",
-    "build-all": "electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/ghym/assets/app.ico --platform=win32 --arch=ia32 --version-string.ProductName=\"ghym\" --out=win && electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/ghym/assets/app.png --asar=true --platform=linux --arch=x64 --out=linux && electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/ghym/assets/AppIcon.icns --out=mac"
+    "package": "electron-packager . ghym --platform=all --icon=/Users/neelredkar/Documents/Git/ghym/assets/AppIcon.icns"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "electron": "^8.0.2",
     "express": "^4.17.1",
+    "fix-path": "^3.0.0",
     "python-shell": "^1.0.8",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
+    "electron": "^8.0.2",
     "mdbreact": "^4.25.2",
     "electron-packager": "^14.2.1",
     "react-chartjs-2": "^2.9.0",
