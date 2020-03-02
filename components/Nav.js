@@ -51,11 +51,6 @@ export default props => {
               </Link>
             </Linker>
             <Box mx='auto' />
-			<Linker href="/help">
-				<Link mx="10px" variant='nav'>
-					Help!
-				</Link>
-			</Linker>
             <ColorButton
                 onClick={e => {
                     setColorMode(colorMode === 'default' ? 'dark' : 'default')

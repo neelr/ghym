@@ -10,7 +10,7 @@ export default class Home extends React.Component {
                 <Flex flexDirection="column" height="50vh">
                     <Heading sx={{textDecoration:"underline",textDecorationStyle: "wavy",}} fontSize={[6,7]} m="auto">Ghym</Heading>
                     <Text m="auto" p="10px" fontWeight="700">Simple, Modern, Distributed Cloud Computing</Text>
-                    <Text width="75vw" m="auto" sx={{textIndent:"5vw"}}>Corned beef boudin drumstick alcatra, salami chuck jowl ground round short ribs. Chuck tri-tip ham jowl, pork venison salami shank meatball pork belly turkey ribeye rump flank sirloin. Porchetta landjaeger pork beef ribs picanha andouille chislic venison. Beef ribs andouille ham shank. Venison chislic hamburger pork. Capicola ribeye jowl, jerky corned beef tail andouille pig. T-bone corned beef swine ribeye brisket pastrami ham hock picanha pork belly buffalo.</Text>
+                    <Text width="75vw" m="auto" sx={{textIndent:"5vw"}}>Ghym is a distributed cloud computing platform that allows users in a cluster to host and give jobs on the network! This allows for a network where people can give and recieve requests at any time. Check statistics to see the jobs and nodes. We currently support python files as people use it the most for computationally intensive AI tasks. Check out the devs on github @neelr and @evan-nishi</Text>
                 </Flex>
                 <Flex height="50vh">
                     <Link href="/host">
