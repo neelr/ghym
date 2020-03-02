@@ -8,7 +8,7 @@
     "start-next": "next",
     "build": "next build && next export",
     "package": "electron-packager .",
-    "build-all": "electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/TheDebateTimer/assets/app.ico --platform=win32 --arch=ia32 --version-string.ProductName=\"the debate timer\" --out=win && electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/TheDebateTimer/assets/app.png --asar=true --platform=linux --arch=x64 --out=linux && electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/TheDebateTimer/assets/AppIcon.icns --out=mac"
+    "build-all": "electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/ghym/assets/app.ico --platform=win32 --arch=ia32 --version-string.ProductName=\"ghym\" --out=win && electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/ghym/assets/app.png --asar=true --platform=linux --arch=x64 --out=linux && electron-packager . --overwrite --icon=/Users/neelredkar/Documents/Git/ghym/assets/AppIcon.icns --out=mac"
   },
   "author": "",
   "license": "MIT",
@@ -17,11 +17,11 @@
     "dotenv": "^8.2.0",
     "electron": "^8.0.2",
     "express": "^4.17.1",
-    "mdbreact": "^4.25.2",
     "python-shell": "^1.0.8",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
+    "mdbreact": "^4.25.2",
     "electron-packager": "^14.2.1",
     "react-chartjs-2": "^2.9.0",
     "react-dropzone": "^10.2.1",
