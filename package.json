@@ -20,7 +20,7 @@
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
-    "electron": "^8.0.2",
+    "electron": "^8.5.2",
     "mdbreact": "^4.25.2",
     "electron-packager": "^14.2.1",
     "react-chartjs-2": "^2.9.0",
